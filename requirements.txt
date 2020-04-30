@@ -1,0 +1,4 @@
+connexion[swagger-ui]==2.0.2
+flask==0.12.1
+werkzeug==0.15.5
+

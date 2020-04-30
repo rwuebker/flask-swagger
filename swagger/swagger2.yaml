@@ -1,0 +1,112 @@
+swagger: "2.0"
+
+info:
+  description: None
+  title: Test Swagger
+  version: "1.0"
+
+produces:
+  - application/json
+consumes:
+  - application/json
+
+basePath: /example
+
+parameters:
+  recordId:
+    name: recordId
+    in: path
+    description: Record Id
+    required: true
+    type: string
+responses:
+  BadRequest:
+    description: Bad Request
+    schema:
+      $ref: "#/definitions/Problem"
+  Created:
+    description: Created
+  NoContent:
+    description: No Content
+  NotFound:
+    description: Not Found
+    schema:
+      $ref: "#/definitions/Problem"
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: "#/definitions/Problem"
+
+paths:
+  /{recordId}:
+    get:
+      summary: Get record
+      operationId: api.get_record
+      parameters:
+        - $ref: '#/parameters/recordId'
+      responses:
+        200:
+          description: get record for id
+        403:
+          $ref: "#/responses/Unauthorized"
+        404:
+          $ref: "#/responses/NotFound"
+
+    put:
+      summary: Update description of record
+      operationId: api.update_description
+      parameters:
+        - $ref: '#/parameters/recordId'
+        - name: body
+          in: body
+          description: disc of record
+          required: true
+          schema:
+            $ref: '#/definitions/update_description'
+      responses:
+        200:
+          description: record desc
+        400:
+          $ref: "#/responses/BadRequest"
+        403:
+          $ref: "#/responses/Unauthorized"
+        404:
+          $ref: "#/responses/NotFound"
+
+
+definitions:
+
+  # Schema for error response body
+  Problem:
+    type: object
+    properties:
+      detail:
+        type: string
+      status:
+        type: number
+      title:
+        type: string
+      type:
+        type: string
+    required: ["detail", "status", "title", "type"]
+
+  name:
+    description: name of the record
+    type: string
+
+  description:
+    description: description of the record
+    type: string
+
+  state:
+    description: state of the record
+    type: string
+    enum: [test, beta, active, inactive]
+
+  update_description:
+    type: object
+    properties:
+      description:
+        $ref: '#/definitions/description'
+    additionalProperties: false
+    required: [description]

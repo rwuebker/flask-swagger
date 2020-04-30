@@ -1,0 +1,148 @@
+openapi: 3.0.1
+info:
+  title: Test Swagger
+  description: None
+  version: "1.0"
+servers:
+- url: /example
+paths:
+  /{recordId}:
+    get:
+      summary: Get record
+      operationId: api.get_record
+      parameters:
+      - name: recordId
+        in: path
+        description: Record Id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: get record for id
+          content: {}
+        403:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    put:
+      summary: Update description of record
+      operationId: api.update_description
+      parameters:
+      - name: recordId
+        in: path
+        description: Record Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: disc of the record
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_description'
+        required: true
+      responses:
+        200:
+          description: record desc
+          content: {}
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        403:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    Problem:
+      required:
+      - detail
+      - status
+      - title
+      - type
+      type: object
+      properties:
+        detail:
+          type: string
+        status:
+          type: number
+        title:
+          type: string
+        type:
+          type: string
+    name:
+      type: string
+      description: name of the record
+    description:
+      type: string
+      description: description of the record
+    state:
+      type: string
+      description: state of the record
+      enum:
+      - test
+      - beta
+      - active
+      - inactive
+    update_description:
+      required:
+      - description
+      type: object
+      properties:
+        description:
+          $ref: '#/components/schemas/description'
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Created:
+      description: Created
+      content: {}
+    NoContent:
+      description: No Content
+      content: {}
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  parameters:
+    recordId:
+      name: recordId
+      in: path
+      description: Record Id
+      required: true
+      schema:
+        type: string
+
