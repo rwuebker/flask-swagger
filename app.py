@@ -1,5 +1,4 @@
 import connexion
-import flask
 import json
 import os
 from werkzeug.wrappers import Response
@@ -67,7 +66,6 @@ def run_exercise(swagger_file):
     body_encoded = json.dumps(body).encode('utf-8')
     body_bytes_io = BytesIO(body_encoded)
 
-
     # update the request data
     environ['CONTENT_LENGTH'] = str(len(body_encoded))
     environ['wsgi.input'] = body_bytes_io
@@ -84,4 +82,3 @@ if __name__ == '__main__':
     run_exercise('swagger2.yaml')
     print('------running second round with swagger 3 file------')
     run_exercise('swagger3.yaml')
-

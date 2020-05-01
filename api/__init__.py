@@ -59,4 +59,5 @@ def secondary_function(recordId):
 
 if __name__ == '__main__':
     r = get_record('123')
-    r = update_description(recordId='123', body={'description': 'new description'})
+    r = update_description(recordId='123',
+                           body={'description': 'new description'})
