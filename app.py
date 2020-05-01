@@ -83,8 +83,8 @@ def run_exercise(swagger_file):
 
 
 if __name__ == '__main__':
-    print('running first round with swagger 2 file')
+    print('------running first round with swagger 2 file-------')
     run_exercise('swagger2.yaml')
-    print('running second round with swagger 3 file')
+    print('------running second round with swagger 3 file------')
     run_exercise('swagger3.yaml')
 
