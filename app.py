@@ -3,8 +3,6 @@ import flask
 import json
 import os
 from werkzeug.wrappers import Response
-#from werkzeug._compat import BytesIO
-#from werkzeug._compat import to_bytes
 from io import BytesIO
 
 ROOT_DIR = os.path.dirname(__file__)
@@ -66,7 +64,6 @@ def run_exercise(swagger_file):
     body = {
         'description': 'this is new description'
     }
-    #body_encoded = to_bytes(json.dumps(body).encode('utf-8'), charset='utf-8')
     body_encoded = json.dumps(body).encode('utf-8')
     body_bytes_io = BytesIO(body_encoded)
 

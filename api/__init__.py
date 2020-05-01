@@ -23,13 +23,21 @@ def get_record(recordId):
 
 def update_description(recordId, body):
     print('this is body in handler: ', body)
+
+    # here we add another key to body
     body['status'] = True
     return secondary_function(recordId)
 
 
 def secondary_function(recordId):
+
+    # here we get the body from flask.request.json
+    # notice with the swagger2 file it is updated
+    # with the new key "status"
+    # but with the swagger 3 file it is not
     body = flask.request.json
     print('this is body in secondary function: ', body)
+
     data_file_path = os.path.join(DATA_DIR, 'data.json')
     with open(data_file_path, 'r') as fh:
         data = json.load(fh)
